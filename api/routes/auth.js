@@ -50,7 +50,7 @@ function init(db) {
           if (err) return res.json({ Error: "Inserting data error!" });
           return res.json({ Status: "Success" });
         });
-      });
+      }) ;
     }
   );
 
