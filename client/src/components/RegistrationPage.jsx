@@ -1,109 +1,66 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../context/Auth/authState";
 const RegistrationPage = () => {
-  const [values, setValues] = useState({
-    firstname: "",
-    lastname: "",
-    username: "",
-    password: "",
-    email: "",
-    course: "",
-    contact: "",
-  });
+  const { registerValues, setRegisterValues, handleSignUp } = useContext(AuthContext);
 
-  const navigate = useNavigate();
-  const handleSignUp = (event) => {
-    event.preventDefault();
-    axios
-      .post("http://localhost:8081/api/auth/register", values)
-      .then((res) => {
-        if (res.data.Status === "Success") {
-          navigate("/login");
-        } else {
-          alert("Error!");
-        }
-      })
-      .catch((err) => {
-        if (err.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          console.error("Server Error:", err.response.data);
-        } else if (err.request) {
-          // The request was made but no response was received
-          // `err.request` is an instance of XMLHttpRequest in the browser and an instance of
-          // http.ClientRequest in node.js
-          console.error("No response received:", err.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.error("Error setting up the request:", err.message);
-        }
-        alert("Error occurred while making the request. Please try again later.");
-      });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setRegisterValues({ ...registerValues, [name]: value });
   };
-  
-  
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleSignUp(event);
+  };
 
   return (
     <>
       <div className="flex items-center justify-center my-16 mx-4 p-2">
-        <form className="w-full max-w-lg">
-          <a className="block uppercase tracking-wide text-gray-700 text-lg font-bold mb-8">
-            Welcome! Please fill the details below to signup!
+        <form className="w-full max-w-lg" onSubmit={handleSubmit}>
+          <a className="block uppercase tracking-wide text-gray-700 text-xl font-bold mb-8 text-center" >
+            {/* Welcome to our ERP where you can ease your worlflow and manage most efficiently! */}
+            REGISTER
           </a>
           <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="firstname"
-              >
-                FIRST NAME
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                id="first-name"
-                type="text"
-                placeholder="Enter your first name"
-                onChange={(e) =>
-                  setValues({ ...values, firstname: e.target.value })
-                }
-              />
-            </div>
 
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <div className=" w-1/2 md:w-full px-3">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="lastname"
+                htmlFor="regno"
               >
-                LAST NAME
+                Registration Number
               </label>
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="last-name"
-                type="text"
-                placeholder="Enter your last name here"
-                onChange={(e) =>
-                  setValues({ ...values, lastname: e.target.value })
-                }
+                id="regno"
+                type="int"
+                name="regno"
+                value={registerValues.regno}
+                placeholder="Enter your registration number here"
+                onChange={handleChange}
+                required
               />
             </div>
+          </div>
+          <div className="flex flex-wrap -mx-3 mb-6">
 
-            <div className="w-full md:w-1/2 px-3">
+            <div className=" w-1/2 md:w-full px-3">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="username"
+                htmlFor="regno"
               >
-                USERNAME
+                Applicant's Name
               </label>
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="username"
+                id="name"
                 type="text"
-                placeholder="Enter your username here"
-                onChange={(e) =>
-                  setValues({ ...values, username: e.target.value })
-                }
+                name="name"
+                value={registerValues.name}
+                placeholder="Enter your full name here"
+                onChange={handleChange}
+                required
               />
             </div>
           </div>
@@ -120,10 +77,12 @@ const RegistrationPage = () => {
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="password"
                 type="password"
+                name="password"
+                value={registerValues.password}
+                minLength="6"
                 placeholder="*********"
-                onChange={(e) =>
-                  setValues({ ...values, password: e.target.value })
-                }
+                onChange={handleChange}
+                required
               />
             </div>
           </div>
@@ -139,11 +98,12 @@ const RegistrationPage = () => {
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="email"
+                name="email"
                 type="email"
+                value={registerValues.email}
                 placeholder="Email here"
-                onChange={(e) =>
-                  setValues({ ...values, email: e.target.value })
-                }
+                onChange={handleChange}
+                required
               />
             </div>
 
@@ -158,9 +118,10 @@ const RegistrationPage = () => {
                 <select
                   className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="course"
-                  onChange={(e) =>
-                    setValues({ ...values, course: e.target.value })
-                  }
+                  name="course"
+                  placeholder="-Course-"
+                  value={registerValues.course}
+                  onChange={handleChange  }
                 >
                   <option>B.Tech</option>
                   <option>B.Tech (Lateral Entry)</option>
@@ -190,12 +151,12 @@ const RegistrationPage = () => {
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="contact"
                 type="tel"
-                name="tel"
+                name="contact"
                 placeholder="987-654-3210"
+                value={registerValues.contact}
                 pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                onChange={(e) =>
-                  setValues({ ...values, contact: e.target.value })
-                }
+                onChange={handleChange}
+                required
               />
             </div>
           </div>
@@ -210,7 +171,7 @@ const RegistrationPage = () => {
 
             <p>Already an user? Login here 👉</p>
             <Link
-              to={"/login"}
+              to={"/loginstudent"}
               className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Log In

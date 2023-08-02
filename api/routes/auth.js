@@ -15,9 +15,8 @@ function init(db) {
   router.post(
     "/register",
     [
-      body("firstname").notEmpty(),
-      body("lastname").notEmpty(),
-      body("username").notEmpty(),
+      body("regno").notEmpty(),
+      body("name").notEmpty(),
       body("password").isLength({ min: 4 }),
       body("email").isEmail(),
       body("course").notEmpty(),
@@ -30,27 +29,27 @@ function init(db) {
       }
 
       const {
-        firstname,
-        lastname,
-        username,
+        regno,
+        name,
         password,
         email,
         course,
-        contact,
+        contact
       } = req.body;
 
-      bcrypt.hash(password, saltRounds, (err, hash) => {
-        if (err) return res.json({ Error: "Error while hashing password" });
+      // TODO: hashing is not working right now get back to it
+      //  bcrypt.hash(password, saltRounds, (err, hash) => {
+      //    if (err) return res.json({ Error: "Error while hashing password" });
 
-        const sql =
-          "INSERT INTO users(`firstname`, `lastname`, `username`, `password`, `email`, `course`, `contact`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        const values = [firstname, lastname, username, hash, email, course, contact];
-
+      const sql =
+      "INSERT INTO users (`regno`, `name`, `password`, `email`, `course`, `contact`) VALUES (?, ?, ?, ?, ?, ?)";
+    const values = [regno, name, password, email, course, contact];
+    
         db.query(sql, values, (err, result) => {
           if (err) return res.json({ Error: "Inserting data error!" });
           return res.json({ Status: "Success" });
         });
-      });
+      
     }
   );
 
@@ -69,8 +68,8 @@ function init(db) {
 
       const { credential, password } = req.body;
 
-      const sql = "SELECT * FROM users WHERE `username` = ? OR `email` = ?";
-      db.query(sql, [credential, credential],async (err, results) => {
+      const sql = "SELECT * FROM users WHERE `regno` = ?";
+      db.query(sql, [credential],async (err, results) => {
         if (err) {
           return res.status(500).json({ Error: "Database query error" });
         }
@@ -81,12 +80,15 @@ function init(db) {
 
         const user = results[0];
 
-        try {
-          const isMatch = await bcrypt.compare(password, user.password);
-          if (!isMatch) {
+        // try {
+        //   const isMatch = bcrypt.compare(password, user.password);
+        //   if (!isMatch) {
+        //     return res.status(400).json({ Error: "Invalid Credentials unmatched" });
+        //   }
+          try {
+          if (password !== user.password) {
             return res.status(400).json({ Error: "Invalid Credentials unmatched" });
           }
-
           const payload = {
             user: {
               id: user.id,

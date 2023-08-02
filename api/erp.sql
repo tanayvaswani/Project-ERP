@@ -256,9 +256,8 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 
 CREATE TABLE `users` (
   `id` bigint(20) NOT NULL,
-  `firstname` text NOT NULL,
-  `lastname` text NOT NULL,
-  `username` text NOT NULL,
+  `regno` int(30) NOT NULL,
+  `name` text NOT NULL,
   `password` varchar(40) NOT NULL,
   `email` text NOT NULL,
   `course` text NOT NULL,
@@ -269,8 +268,7 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `password`, `email`, `course`, `contact`) VALUES
-(1, 'aman', 'sharma', 'yomons', '$2b$10$VYglEzbQGA1qzyk/6DvkCeLX6NaX8Ai5.', 'amansharma12607@gmail.com', '', 2147483647);
+INSERT INTO `users` (`id`, `regno`, `name`, `password`, `email`, `course`, `contact`) VALUES
 
 --
 -- Indexes for dumped tables
