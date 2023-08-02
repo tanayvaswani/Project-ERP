@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 31, 2023 at 10:50 PM
+-- Generation Time: Aug 02, 2023 at 09:34 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -116,7 +116,8 @@ CREATE TABLE `auth_user` (
 --
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(1, 'pbkdf2_sha256$390000$gvoAtdbeJpS5yhsuMJxKjQ$xbHK7GoNaBdby+el4dZRFTAJ4rKhGo6v8jNlt37EbcY=', '2023-07-31 19:46:36.335101', 1, 'chanm', '', '', '', 1, 1, '2023-07-31 19:46:17.882310');
+(1, 'pbkdf2_sha256$390000$gvoAtdbeJpS5yhsuMJxKjQ$xbHK7GoNaBdby+el4dZRFTAJ4rKhGo6v8jNlt37EbcY=', '2023-07-31 19:46:36.335101', 1, 'chanm', '', '', '', 1, 1, '2023-07-31 19:46:17.882310'),
+(2, 'pbkdf2_sha256$600000$lAZrXgxZNK93YQ5248SKhm$bRrTp4xOvCadmnzXF4xef4xiON6yExMKq3mNKBCeOKg=', '2023-08-01 17:12:22.240626', 1, 'aman', '', '', '', 1, 1, '2023-08-01 17:12:05.054120');
 
 -- --------------------------------------------------------
 
@@ -246,7 +247,8 @@ CREATE TABLE `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
-('6yn1ezw80z6jnzj7l5zzn7fspgr3yrw3', '.eJxVjDsOwjAQBe_iGln-4HhDSZ8zWBvvLgkgW4qTCnF3iJQC2jcz76USbuuUtsZLmkldlFWn323E_OCyA7pjuVWda1mXedS7og_a9FCJn9fD_TuYsE3fWrKBLtizkdB7Eek74mgD9oY6zt4ZIIEIgs6BhIhsMDuOI4n1KAzq_QHrdTin:1qQYqi:Q9oF00_gWv4FijFWHzTtntT-kklu58zxFtorZlGNTFE', '2023-08-14 19:46:36.343100');
+('6yn1ezw80z6jnzj7l5zzn7fspgr3yrw3', '.eJxVjDsOwjAQBe_iGln-4HhDSZ8zWBvvLgkgW4qTCnF3iJQC2jcz76USbuuUtsZLmkldlFWn323E_OCyA7pjuVWda1mXedS7og_a9FCJn9fD_TuYsE3fWrKBLtizkdB7Eek74mgD9oY6zt4ZIIEIgs6BhIhsMDuOI4n1KAzq_QHrdTin:1qQYqi:Q9oF00_gWv4FijFWHzTtntT-kklu58zxFtorZlGNTFE', '2023-08-14 19:46:36.343100'),
+('l2unuurt35li28i3dpl4rjoyf2ypa7rk', '.eJxVjMEOwiAQRP-FsyHALpR49O43EBYWqRqalPbU-O-2SQ96m8x7M5sIcV1qWDvPYcziKoy4_HYU04vbAfIztsck09SWeSR5KPKkXd6nzO_b6f4d1Njrvi6sbSEgB9o4Jq8YNCqfyOViiyWnBiIy2iDuGREAPUQcHEerOYH4fAHjijeH:1qQsv0:q3jayFBAS92JXcm6hTTziLp04xAW6SSeLhN5xKBYDWw', '2023-08-15 17:12:22.249760');
 
 -- --------------------------------------------------------
 
@@ -269,6 +271,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `regno`, `name`, `password`, `email`, `course`, `contact`) VALUES
+(1, 0, 'yomons', '$2b$10$VYglEzbQGA1qzyk/6DvkCeLX6NaX8Ai5.', 'amansharma12607@gmail.com', '', 2147483647),
+(6, 23456789, 'johndoe123', 'secretpassword', 'john.doe@example.com', 'BTech', 1234567890),
+(7, 2147483647, 'aman', '12345678', 'amansharma12607@gmail.com', 'B.Tech (Lateral Entry)', 816827821);
 
 --
 -- Indexes for dumped tables
@@ -379,7 +384,7 @@ ALTER TABLE `auth_permission`
 -- AUTO_INCREMENT for table `auth_user`
 --
 ALTER TABLE `auth_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `auth_user_groups`
@@ -415,7 +420,7 @@ ALTER TABLE `django_migrations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
