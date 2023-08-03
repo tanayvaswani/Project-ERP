@@ -17,8 +17,14 @@ app.get("/", (req, res) => {
 });
 
 // Routes
-const authRouter = require('./routes/auth')(db); // Pass the db connection to auth.js
+// Pass the db connection to the routes
+const authRouter = require('./routes/auth')(db); 
+const admissionFormRouter = require('./routes/admissionform')(db);
+const recruitmentRoutes = require('./routes/recruitment')(db);
+
 app.use('/api/auth', authRouter);
+app.use("/api/admissionform", admissionFormRouter);
+app.use('/api/recruitment', recruitmentRoutes);
 
 app.listen(serverPort, () => {
   console.log(`Server is running on port: ${serverPort}`);

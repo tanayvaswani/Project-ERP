@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2023 at 09:34 PM
+-- Generation Time: Aug 03, 2023 at 07:40 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,37 @@ SET time_zone = "+00:00";
 --
 -- Database: `erp`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admission_form`
+--
+
+CREATE TABLE `admission_form` (
+  `id` int(11) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `lastName` varchar(50) NOT NULL,
+  `dateOfBirth` varchar(20) NOT NULL,
+  `gender` enum('Male','Female','Other') NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `state` varchar(50) NOT NULL,
+  `zipCode` varchar(10) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `fatherName` varchar(50) NOT NULL,
+  `fatherOccupation` varchar(50) NOT NULL,
+  `motherName` varchar(50) NOT NULL,
+  `motherOccupation` varchar(50) NOT NULL,
+  `qualification` varchar(100) NOT NULL,
+  `schoolName` varchar(100) NOT NULL,
+  `boardName` varchar(100) NOT NULL,
+  `percentage` float NOT NULL,
+  `achievements` text DEFAULT '',
+  `registrationFee` varchar(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -273,11 +304,18 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `regno`, `name`, `password`, `email`, `course`, `contact`) VALUES
 (1, 0, 'yomons', '$2b$10$VYglEzbQGA1qzyk/6DvkCeLX6NaX8Ai5.', 'amansharma12607@gmail.com', '', 2147483647),
 (6, 23456789, 'johndoe123', 'secretpassword', 'john.doe@example.com', 'BTech', 1234567890),
-(7, 2147483647, 'aman', '12345678', 'amansharma12607@gmail.com', 'B.Tech (Lateral Entry)', 816827821);
+(7, 2147483647, 'aman', '12345678', 'amansharma12607@gmail.com', 'B.Tech (Lateral Entry)', 816827821),
+(8, 12345678, 'yomons', '12345678', 'john.doe@example.com', 'BTech', 1234567890);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admission_form`
+--
+ALTER TABLE `admission_form`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `auth_group`
@@ -363,6 +401,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `admission_form`
+--
+ALTER TABLE `admission_form`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `auth_group`
 --
 ALTER TABLE `auth_group`
@@ -420,7 +464,7 @@ ALTER TABLE `django_migrations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
